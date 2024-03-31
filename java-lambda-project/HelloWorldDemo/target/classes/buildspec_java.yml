@@ -1,0 +1,15 @@
+version: 0.2
+
+phases: 
+  install:
+    runtime-versions:
+      java: corretto11
+
+  build:
+    commands:
+      - cd HelloWorldDemo
+      - mvn clean package
+  post_build:
+    commands:
+      - ls target/
+      - aws lambda update-function-code --function-name JavaLambdaDemo --zip-file fileb://target/demo-1.0.0.jar --region ap southeast-2
